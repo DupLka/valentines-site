@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Моя интерактивная открытка 💖</title>
+    <style>
+        body {
+            background-color: #ffe6f2;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            color: #d63384;
+            overflow: hidden;
+        }
+        .container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .card {
+            width: 450px;
+            height: 550px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            position: relative;
+        }
+        .page {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            transition: transform 0.8s ease-in-out;
+        }
+        .hidden {
+            transform: translateX(100%);
+        }
+        .show {
+            transform: translateX(0);
+        }
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #ff80b3;
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .hearts {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .heart {
+            position: absolute;
+            color: red;
+            font-size: 24px;
+            animation: fall 4s linear infinite;
+        }
+        @keyframes fall {
+            from { transform: translateY(-10px); }
+            to { transform: translateY(100vh); }
+        }
+        img {
+        margin-top: 20px;
+
+        }
+        h1 {
+        margin-bottom: 30px; 
+        }
+        .boo {
+        margin-top: 40px;  
+        }
+        .border {
+    border: 3px solid #ff80b3;
+   }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="page show" id="page1">
+              <img src="photo3.jpg" width="250" alt="Наше фото" width="200" class="border">
+              <h2>Привет, котенок! 💕</h2>
+                <p>Ты самый лучший, и эта открытка для тебя!</p>
+                <button onclick="nextPage(1)">Дальше</button>
+            </div>
+            <div class="page hidden" id="page2">
+                <h2>Наша история 💑</h2>
+                <img src="photo4.jpg" width="250" alt="Наше фото" width="200" class="border">
+                <p class="boo">Наши самые тёплые моменты вместе!</p>
+                <button onclick="nextPage(2)">Дальше</button>
+            </div>
+            
+            <div class="page hidden" id="page3">
+                <h2>Сюрприз! 🎉</h2>
+                <p>Посмотри, как миленько падают сердечки!</p>
+                <div class="hearts" id="hearts"></div>
+                <button onclick="nextPage(3)" class="boo">Дальше</button>
+            </div>
+            <div class="page hidden" id="page4">
+                <h2>Я люблю тебя! ❤️</h2>
+                <p>Ты самый дорогой человек в моей жизни!</p>
+                <img src="photo1.jpg" width="250" alt="Наше фото" width="200" class="border">
+            </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let currentPage = 1;
+        function nextPage(page) {
+            document.getElementById(`page${page}`).classList.remove('show');
+            document.getElementById(`page${page}`).classList.add('hidden');
+            document.getElementById(`page${page + 1}`).classList.remove('hidden');
+            document.getElementById(`page${page + 1}`).classList.add('show');
+            if (page === 2) {
+                createHearts();
+            }
+        }
+        function createHearts() {
+            const heartsContainer = document.getElementById("hearts");
+            for (let i = 0; i < 20; i++) {
+                let heart = document.createElement("div");
+                heart.classList.add("heart");
+                heart.innerHTML = "❤️";
+                heart.style.left = Math.random() * 100 + "vw";
+                heart.style.animationDuration = (Math.random() * 2 + 3) + "s";
+                heartsContainer.appendChild(heart);
+            }
+        }
+    </script>
+</body>
+</html>
